@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generador de Informe ASG/ESG</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="asgesg-wrap" id="asgesg-wrap">
+<div class="app-shell">
+  <aside>
+    <div class="sidebar-label">Módulos</div>
+    <div class="nav-item active" onclick="ASGESG.navigate('dashboard')" id="nav-dashboard">
+      <span class="icon">⬡</span> Dashboard
+    </div>
+    <div class="nav-item" onclick="ASGESG.navigate('organizacion')" id="nav-organizacion">
+      <span class="icon">◎</span> Organización
+      <span class="nav-progress zero" id="prog-organizacion">0%</span>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-label">Social (S)</div>
+    <div class="nav-item" onclick="ASGESG.navigate('empleados')" id="nav-empleados">
+      <span class="icon">◈</span> Empleados
+      <span class="nav-progress zero" id="prog-empleados">0%</span>
+    </div>
+    <div class="nav-item" onclick="ASGESG.navigate('diversidad')" id="nav-diversidad">
+      <span class="icon">◈</span> Diversidad
+      <span class="nav-progress zero" id="prog-diversidad">0%</span>
+    </div>
+    <div class="nav-item" onclick="ASGESG.navigate('proveedores')" id="nav-proveedores">
+      <span class="icon">◈</span> Proveedores
+      <span class="nav-progress zero" id="prog-proveedores">0%</span>
+    </div>
+    <div class="nav-item" onclick="ASGESG.navigate('clientes')" id="nav-clientes">
+      <span class="icon">◈</span> Clientes
+      <span class="nav-progress zero" id="prog-clientes">0%</span>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-label">Ambiental (E)</div>
+    <div class="nav-item" onclick="ASGESG.navigate('medioambiente')" id="nav-medioambiente">
+      <span class="icon">◉</span> Medio Ambiente
+      <span class="nav-progress zero" id="prog-medioambiente">0%</span>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-label">Gobernanza (G)</div>
+    <div class="nav-item" onclick="ASGESG.navigate('etica')" id="nav-etica">
+      <span class="icon">◑</span> Ética y Conducta
+      <span class="nav-progress zero" id="prog-etica">0%</span>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="nav-item" onclick="ASGESG.navigate('generar')" id="nav-generar">
+      <span class="icon">⬢</span> <strong>Generar Informe</strong>
+    </div>
+  </aside>
+
+  <div>
+
+    <!-- ─── DASHBOARD ─── -->
+    <div class="section active" id="section-dashboard">
+      <div class="section-header">
+        <h2>Plataforma de <span>Reporting ASG/ESG</span></h2>
+        <p>Genera documentos de sostenibilidad alineados con los estándares GRI y la normativa europea CSRD. Rellena cada módulo y descarga el documento Word listo para presentar — todo se genera en tu navegador, sin enviar datos a ningún servidor.</p>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-value green" id="kpi-pct">0%</div>
+          <div class="kpi-label">Completado global</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value blue" id="kpi-sections">0/7</div>
+          <div class="kpi-label">Módulos iniciados</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value yellow" id="kpi-metrics">0</div>
+          <div class="kpi-label">Indicadores GRI rellenados</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Estándares soportados</div>
+        <div class="card-hint">Esta herramienta está alineada con los siguientes marcos normativos europeos e internacionales.</div>
+        <div class="checkbox-group" style="pointer-events:none">
+          <div class="checkbox-pill checked"><input type="checkbox" disabled tabindex="-1" aria-hidden="true" checked>GRI Standards 2021</div>
+          <div class="checkbox-pill checked"><input type="checkbox" disabled tabindex="-1" aria-hidden="true" checked>Agenda 2030 ODS</div>
+          <div class="checkbox-pill checked"><input type="checkbox" disabled tabindex="-1" aria-hidden="true" checked>Pacto Mundial ONU</div>
+          <div class="checkbox-pill checked"><input type="checkbox" disabled tabindex="-1" aria-hidden="true" checked>CSRD (EU 2022/2464)</div>
+          <div class="checkbox-pill checked"><input type="checkbox" disabled tabindex="-1" aria-hidden="true" checked>Acuerdo de París</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Cómo funciona</div>
+        <div class="card-hint">1. Rellena el módulo <strong>Organización</strong> con los datos básicos de tu empresa.<br>
+        2. Completa cada bloque ESG: Social, Ambiental y Gobernanza.<br>
+        3. En <strong>Generar Informe</strong>, elige el documento que quieres (Reporte ASG, Política Medioambiental o Código de Conducta).<br>
+        4. Descarga el documento .docx, generado al instante en tu propio navegador.</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="ASGESG.navigate('organizacion')">Empezar ahora</button>
+      </div>
+    </div>
+
+    <!-- ─── ORGANIZACIÓN ─── -->
+    <div class="section" id="section-organizacion">
+      <div class="section-header">
+        <div class="gri-tag">GRI 102-1 · 102-2 · 102-3 · 102-4 · 102-47</div>
+        <h2>Información de la <span>Organización</span></h2>
+        <p>Datos generales de la empresa. Esta información aparecerá en la portada y el resumen ejecutivo del informe.</p>
+      </div>
+
+      <div class="progress-bar-wrap">
+        <span class="progress-label">Progreso del módulo</span>
+        <div class="progress-track"><div class="progress-fill" id="fill-organizacion" style="width:0%"></div></div>
+        <span class="progress-pct" id="pct-organizacion">0%</span>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Datos básicos</div>
+        <div class="field-row">
+          <div>
+            <label class="field-label" for="org_nombre"><span class="required">*</span> Nombre de la empresa</label>
+            <input type="text" id="org_nombre" placeholder="Ej: Comercial Valenciana S.L." oninput="ASGESG.saveAndProgress()">
+          </div>
+          <div>
+            <label class="field-label" for="org_sector"><span class="required">*</span> Sector de actividad</label>
+            <select id="org_sector" onchange="ASGESG.saveAndProgress()">
+              <option value="">Seleccionar sector...</option>
+              <option>Manufactura e industria</option>
+              <option>Servicios profesionales</option>
+              <option>Tecnología y software</option>
+              <option>Retail y comercio</option>
+              <option>Construcción e inmobiliaria</option>
+              <option>Energía y utilities</option>
+              <option>Transporte y logística</option>
+              <option>Alimentación y agricultura</option>
+              <option>Salud y farmacéutica</option>
+              <option>Educación</option>
+              <option>Hostelería y turismo</option>
+              <option>Otro</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row" style="margin-top:0.75rem">
+          <div>
+            <label class="field-label" for="org_cif">CIF / NIF</label>
+            <input type="text" id="org_cif" placeholder="B12345678">
+          </div>
+          <div>
+            <label class="field-label" for="org_anyo">Año del informe</label>
+            <input type="number" id="org_anyo" placeholder="2026" min="2020" max="2035">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Descripción de actividades <span class="gri-tag">102-2</span></div>
+        <div class="card-hint">Describe los productos, servicios o actividades principales que desarrolla la empresa.</div>
+        <textarea id="org_actividades" aria-label="Descripción de actividades" rows="4" placeholder="Ej: Empresa dedicada a la fabricación y distribución de componentes metálicos para el sector automovilístico..."></textarea>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Localización <span class="gri-tag">102-3 · 102-4</span></div>
+        <div class="field-row">
+          <div>
+            <label class="field-label" for="org_sede">Sede principal</label>
+            <input type="text" id="org_sede" placeholder="Valencia, España">
+          </div>
+          <div>
+            <label class="field-label" for="org_empleados_total">Número de empleados</label>
+            <input type="number" id="org_empleados_total" placeholder="120">
+          </div>
+        </div>
+        <div style="margin-top:0.75rem">
+          <label class="field-label" for="org_paises">Países / regiones de operación</label>
+          <input type="text" id="org_paises" placeholder="España, Portugal, Francia">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Asuntos materiales principales <span class="gri-tag">102-47</span></div>
+        <div class="card-hint">Selecciona los asuntos sociales y ambientales más relevantes para tu empresa.</div>
+        <div class="checkbox-group" id="asuntos-group">
+          <div class="checkbox-pill" onclick="ASGESG.togglePill(this)" data-value="Emisiones CO₂">Emisiones CO₂</div>
+          <div class="checkbox-pill" onclick="ASGESG.togglePill(this)" data-value="Gestión del agua">Gestión del agua</div>
+          <div class="checkbox-pill" onclick="ASGESG.togglePill(this)" data-value="Residuos">Residuos</div>
+          <div class="checkbox-pill" onclick="ASGESG.togglePill(this)" data-value="Eficiencia energética">Eficiencia energética</div>
+          <div class="checkbox-pill" onclick="ASGESG.togglePill(this)" data-value="Derechos humanos">Derechos humanos</div>
+          <div class="checkbox-pill" onclick="ASGESG.togglePill(this)" data-value="Diversidad e inclusión">Diversidad e inclusión</div>
+          <div class="checkbox-pill" onclick="ASGESG.togglePill(this)" data-value="Cadena de suministro">Cadena de suministro</div>
+          <div class="checkbox-pill" onclick="ASGESG.togglePill(this)" data-value="Anticorrupción">Anticorrupción</div>
+          <div class="checkbox-pill" onclick="ASGESG.togglePill(this)" data-value="Privacidad de datos">Privacidad de datos</div>
+          <div class="checkbox-pill" onclick="ASGESG.togglePill(this)" data-value="Biodiversidad">Biodiversidad</div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="ASGESG.navigate('empleados')">Siguiente: Empleados →</button>
+        <button class="btn btn-secondary" onclick="ASGESG.navigate('dashboard')">← Volver</button>
+      </div>
+    </div>
+    <!-- ─── EMPLEADOS ─── -->
+    <div class="section" id="section-empleados">
+      <div class="section-header">
+        <div class="gri-tag">GRI 102-8 · 401-1 · 403-2 · 102-38</div>
+        <h2>Estándares <span>Laborales</span></h2>
+        <p>Datos sobre la plantilla, condiciones de trabajo y bienestar de los empleados.</p>
+      </div>
+
+      <div class="progress-bar-wrap">
+        <span class="progress-label">Progreso del módulo</span>
+        <div class="progress-track"><div class="progress-fill" id="fill-empleados" style="width:0%"></div></div>
+        <span class="progress-pct" id="pct-empleados">0%</span>
+      </div>
+
+      <div class="info-block">
+        <strong>ODS relacionados:</strong> ODS 8 (Trabajo decente), ODS 3 (Salud y bienestar), ODS 10 (Reducción de desigualdades)
+      </div>
+
+      <div class="card">
+        <div class="card-title">Gestión de la plantilla <span class="gri-tag">GRI 102-8</span></div>
+        <div class="card-hint">Describe las prácticas de gestión de personas, políticas de conciliación, teletrabajo, flexibilidad horaria...</div>
+        <textarea id="emp_gestion" aria-label="Gestión de la plantilla" rows="4" placeholder="Ej: La empresa ofrece modalidad híbrida de trabajo (3 días presencial / 2 remoto), flexibilidad horaria con horario de entrada entre 8-10h y salida entre 17-19h..." oninput="ASGESG.saveAndProgress()"></textarea>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Indicadores clave de plantilla</div>
+        <div class="metrics-grid">
+          <div class="metric-row header">
+            <div>Indicador</div><div>Año actual</div><div>Año anterior</div><div>Año -2</div>
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">102-8</span> Nº total empleados</div>
+            <input type="number" id="m_emp_actual" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Nº total empleados — Año actual">
+            <input type="number" id="m_emp_ant1" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Nº total empleados — Año anterior">
+            <input type="number" id="m_emp_ant2" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Nº total empleados — Año -2">
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">401-1</span> Nuevas contrataciones</div>
+            <input type="number" id="m_cont_actual" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Nuevas contrataciones — Año actual">
+            <input type="number" id="m_cont_ant1" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Nuevas contrataciones — Año anterior">
+            <input type="number" id="m_cont_ant2" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Nuevas contrataciones — Año -2">
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">401-1</span> Rotación (%)</div>
+            <input type="number" id="m_rot_actual" placeholder="—" step="0.1" oninput="ASGESG.saveAndProgress()" aria-label="Rotación (%) — Año actual">
+            <input type="number" id="m_rot_ant1" placeholder="—" step="0.1" oninput="ASGESG.saveAndProgress()" aria-label="Rotación (%) — Año anterior">
+            <input type="number" id="m_rot_ant2" placeholder="—" step="0.1" oninput="ASGESG.saveAndProgress()" aria-label="Rotación (%) — Año -2">
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">403-2</span> Absentismo (días/emp)</div>
+            <input type="number" id="m_abs_actual" placeholder="—" step="0.1" oninput="ASGESG.saveAndProgress()" aria-label="Absentismo (días/emp) — Año actual">
+            <input type="number" id="m_abs_ant1" placeholder="—" step="0.1" oninput="ASGESG.saveAndProgress()" aria-label="Absentismo (días/emp) — Año anterior">
+            <input type="number" id="m_abs_ant2" placeholder="—" step="0.1" oninput="ASGESG.saveAndProgress()" aria-label="Absentismo (días/emp) — Año -2">
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">102-38</span> Remuneración media (€/año)</div>
+            <input type="number" id="m_rem_actual" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Remuneración media (€/año) — Año actual">
+            <input type="number" id="m_rem_ant1" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Remuneración media (€/año) — Año anterior">
+            <input type="number" id="m_rem_ant2" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Remuneración media (€/año) — Año -2">
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">403-2</span> Accidentes laborales (nº)</div>
+            <input type="number" id="m_acc_actual" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Accidentes laborales (nº) — Año actual">
+            <input type="number" id="m_acc_ant1" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Accidentes laborales (nº) — Año anterior">
+            <input type="number" id="m_acc_ant2" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Accidentes laborales (nº) — Año -2">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Objetivos del período</div>
+        <textarea id="emp_objetivos" aria-label="Objetivos del período" rows="3" placeholder="Ej: Reducir el absentismo en un 10% mediante el programa de bienestar laboral. Aumentar las horas de formación por empleado de 12 a 20h." oninput="ASGESG.saveAndProgress()"></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="ASGESG.navigate('diversidad')">Siguiente →</button>
+        <button class="btn btn-secondary" onclick="ASGESG.navigate('organizacion')">← Atrás</button>
+      </div>
+    </div>
+
+    <!-- ─── DIVERSIDAD ─── -->
+    <div class="section" id="section-diversidad">
+      <div class="section-header">
+        <div class="gri-tag">GRI 405-1 · 405-2 · 406-1</div>
+        <h2>Diversidad e <span>Inclusión</span></h2>
+        <p>Indicadores de igualdad de género, representación y no discriminación.</p>
+      </div>
+
+      <div class="progress-bar-wrap">
+        <span class="progress-label">Progreso del módulo</span>
+        <div class="progress-track"><div class="progress-fill" id="fill-diversidad" style="width:0%"></div></div>
+        <span class="progress-pct" id="pct-diversidad">0%</span>
+      </div>
+
+      <div class="info-block">
+        <strong>ODS relacionados:</strong> ODS 5 (Igualdad de género), ODS 10 (Reducción de desigualdades)
+      </div>
+
+      <div class="card">
+        <div class="card-title">Composición de la plantilla <span class="gri-tag">405-1</span></div>
+        <div class="field-row">
+          <div>
+            <label class="field-label" for="div_mujeres">% Mujeres en plantilla</label>
+            <input type="number" id="div_mujeres" placeholder="45" min="0" max="100" oninput="ASGESG.saveAndProgress()">
+          </div>
+          <div>
+            <label class="field-label" for="div_mujeres_dir">% Mujeres en dirección</label>
+            <input type="number" id="div_mujeres_dir" placeholder="30" min="0" max="100" oninput="ASGESG.saveAndProgress()">
+          </div>
+        </div>
+        <div class="field-row" style="margin-top:0.75rem">
+          <div>
+            <label class="field-label" for="div_jovenes">% Empleados &lt; 30 años</label>
+            <input type="number" id="div_jovenes" placeholder="20" min="0" max="100" oninput="ASGESG.saveAndProgress()">
+          </div>
+          <div>
+            <label class="field-label" for="div_mayores">% Empleados &gt; 50 años</label>
+            <input type="number" id="div_mayores" placeholder="15" min="0" max="100" oninput="ASGESG.saveAndProgress()">
+          </div>
+        </div>
+        <div class="field-row" style="margin-top:0.75rem">
+          <div>
+            <label class="field-label" for="div_pcd">% Personas con discapacidad <span class="gri-tag" style="margin-left:4px">405-1</span></label>
+            <input type="number" id="div_pcd" placeholder="Ej: 5" min="0" max="100" step="0.1" oninput="ASGESG.saveAndProgress()">
+          </div>
+          <div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Brecha salarial y no discriminación <span class="gri-tag">405-2 · 406-1</span></div>
+        <div class="field-row">
+          <div>
+            <label class="field-label" for="div_brecha">Ratio salarial mujer/hombre (%)</label>
+            <input type="number" id="div_brecha" placeholder="92" min="0" max="150" step="0.1" oninput="ASGESG.saveAndProgress()">
+          </div>
+          <div>
+            <label class="field-label" for="div_discrim">Casos de discriminación</label>
+            <input type="number" id="div_discrim" placeholder="0" min="0" oninput="ASGESG.saveAndProgress()">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Iniciativas de DEI</div>
+        <div class="card-hint">Describe programas, políticas o medidas implementadas para mejorar la diversidad e inclusión.</div>
+        <textarea id="div_iniciativas" aria-label="Iniciativas de DEI" rows="4" placeholder="Ej: Plan de igualdad homologado por el SEPE, protocolo de acoso, programa de mentoring para mujeres directivas..." oninput="ASGESG.saveAndProgress()"></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="ASGESG.navigate('proveedores')">Siguiente →</button>
+        <button class="btn btn-secondary" onclick="ASGESG.navigate('empleados')">← Atrás</button>
+      </div>
+    </div>
+
+    <!-- ─── PROVEEDORES ─── -->
+    <div class="section" id="section-proveedores">
+      <div class="section-header">
+        <div class="gri-tag">GRI 308-1 · 414-1 · 204-1</div>
+        <h2>Cadena de <span>Suministro</span></h2>
+        <p>Criterios de sostenibilidad aplicados a la selección y evaluación de proveedores.</p>
+      </div>
+
+      <div class="progress-bar-wrap">
+        <span class="progress-label">Progreso del módulo</span>
+        <div class="progress-track"><div class="progress-fill" id="fill-proveedores" style="width:0%"></div></div>
+        <span class="progress-pct" id="pct-proveedores">0%</span>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Política de compras sostenibles <span class="gri-tag">204-1</span></div>
+        <div class="card-hint">Describe cómo la empresa integra criterios sociales y ambientales en sus compras.</div>
+        <textarea id="prov_politica" aria-label="Política de compras sostenibles" rows="4" placeholder="Ej: Todos los proveedores estratégicos deben firmar el código de conducta de proveedores. Se prioriza la compra local en un radio de 200km..." oninput="ASGESG.saveAndProgress()"></textarea>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Indicadores de proveedores</div>
+        <div class="metrics-grid">
+          <div class="metric-row header">
+            <div>Indicador</div><div>Año actual</div><div>Año ant.</div><div>Año -2</div>
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">308-1</span> Proveedores evaluados amb.</div>
+            <input type="number" id="m_prov_amb_a" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Proveedores evaluados amb. — Año actual">
+            <input type="number" id="m_prov_amb_b" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Proveedores evaluados amb. — Año anterior">
+            <input type="number" id="m_prov_amb_c" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Proveedores evaluados amb. — Año -2">
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">414-1</span> Proveedores evaluados soc.</div>
+            <input type="number" id="m_prov_soc_a" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Proveedores evaluados soc. — Año actual">
+            <input type="number" id="m_prov_soc_b" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Proveedores evaluados soc. — Año anterior">
+            <input type="number" id="m_prov_soc_c" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Proveedores evaluados soc. — Año -2">
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">204-1</span> % Compras locales</div>
+            <input type="number" id="m_prov_loc_a" placeholder="—" step="0.1" oninput="ASGESG.saveAndProgress()" aria-label="% Compras locales — Año actual">
+            <input type="number" id="m_prov_loc_b" placeholder="—" step="0.1" oninput="ASGESG.saveAndProgress()" aria-label="% Compras locales — Año anterior">
+            <input type="number" id="m_prov_loc_c" placeholder="—" step="0.1" oninput="ASGESG.saveAndProgress()" aria-label="% Compras locales — Año -2">
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="ASGESG.navigate('clientes')">Siguiente →</button>
+        <button class="btn btn-secondary" onclick="ASGESG.navigate('diversidad')">← Atrás</button>
+      </div>
+    </div>
+
+    <!-- ─── CLIENTES ─── -->
+    <div class="section" id="section-clientes">
+      <div class="section-header">
+        <div class="gri-tag">GRI 416-1 · 417-2 · 418-1</div>
+        <h2>Relación con <span>Clientes</span></h2>
+        <p>Salud y seguridad de productos, información al consumidor y privacidad de datos.</p>
+      </div>
+
+      <div class="progress-bar-wrap">
+        <span class="progress-label">Progreso del módulo</span>
+        <div class="progress-track"><div class="progress-fill" id="fill-clientes" style="width:0%"></div></div>
+        <span class="progress-pct" id="pct-clientes">0%</span>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Salud y seguridad de productos <span class="gri-tag">416-1</span></div>
+        <div class="card-hint">¿Cómo garantiza la empresa la seguridad de sus productos/servicios? Certificaciones, procesos de control...</div>
+        <textarea id="cli_salud" aria-label="Salud y seguridad de productos" rows="3" placeholder="Ej: Todos los productos cuentan con certificación CE. Se realizan auditorías de calidad trimestrales..." oninput="ASGESG.saveAndProgress()"></textarea>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Indicadores de clientes</div>
+        <div class="metrics-grid">
+          <div class="metric-row header">
+            <div>Indicador</div><div>Año actual</div><div>Año ant.</div><div>Año -2</div>
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">416-2</span> Incumplim. salud productos</div>
+            <input type="number" id="m_cli_sal_a" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Incumplim. salud productos — Año actual">
+            <input type="number" id="m_cli_sal_b" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Incumplim. salud productos — Año anterior">
+            <input type="number" id="m_cli_sal_c" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Incumplim. salud productos — Año -2">
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">417-2</span> Incumplim. etiquetado</div>
+            <input type="number" id="m_cli_etq_a" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Incumplim. etiquetado — Año actual">
+            <input type="number" id="m_cli_etq_b" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Incumplim. etiquetado — Año anterior">
+            <input type="number" id="m_cli_etq_c" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Incumplim. etiquetado — Año -2">
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">418-1</span> Reclamaciones datos personales</div>
+            <input type="number" id="m_cli_dat_a" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Reclamaciones datos personales — Año actual">
+            <input type="number" id="m_cli_dat_b" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Reclamaciones datos personales — Año anterior">
+            <input type="number" id="m_cli_dat_c" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Reclamaciones datos personales — Año -2">
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="ASGESG.navigate('medioambiente')">Siguiente →</button>
+        <button class="btn btn-secondary" onclick="ASGESG.navigate('proveedores')">← Atrás</button>
+      </div>
+    </div>
+    <!-- ─── MEDIO AMBIENTE ─── -->
+    <div class="section" id="section-medioambiente">
+      <div class="section-header">
+        <div class="gri-tag">GRI 302 · 303 · 305 · 306 · 307</div>
+        <h2>Medio <span>Ambiente</span></h2>
+        <p>Indicadores de energía, agua, emisiones, residuos y cumplimiento ambiental.</p>
+      </div>
+
+      <div class="progress-bar-wrap">
+        <span class="progress-label">Progreso del módulo</span>
+        <div class="progress-track"><div class="progress-fill" id="fill-medioambiente" style="width:0%"></div></div>
+        <span class="progress-pct" id="pct-medioambiente">0%</span>
+      </div>
+
+      <div class="info-block">
+        <strong>ODS relacionados:</strong> ODS 6 (Agua), ODS 7 (Energía), ODS 12 (Producción responsable), ODS 13 (Clima), ODS 14 (Vida submarina), ODS 15 (Vida terrestre)
+      </div>
+
+      <div class="card">
+        <div class="card-title">Política ambiental</div>
+        <div class="card-hint">Describe los compromisos y medidas ambientales que la empresa ha implementado o está implementando.</div>
+        <textarea id="amb_politica" aria-label="Política ambiental" rows="4" placeholder="Ej: La empresa dispone de Sistema de Gestión Ambiental ISO 14001, plan de eficiencia energética, objetivo de neutralidad de carbono para 2030..." oninput="ASGESG.saveAndProgress()"></textarea>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Indicadores ambientales</div>
+        <div class="metrics-grid">
+          <div class="metric-row header">
+            <div>Indicador</div><div>Año actual</div><div>Año ant.</div><div>Año -2</div>
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">302-1</span> Consumo energético (MWh)</div>
+            <input type="number" id="m_amb_ene_a" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Consumo energético (MWh) — Año actual">
+            <input type="number" id="m_amb_ene_b" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Consumo energético (MWh) — Año anterior">
+            <input type="number" id="m_amb_ene_c" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Consumo energético (MWh) — Año -2">
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">302-1</span> % Energía renovable</div>
+            <input type="number" id="m_amb_ren_a" placeholder="—" step="0.1" oninput="ASGESG.saveAndProgress()" aria-label="% Energía renovable — Año actual">
+            <input type="number" id="m_amb_ren_b" placeholder="—" step="0.1" oninput="ASGESG.saveAndProgress()" aria-label="% Energía renovable — Año anterior">
+            <input type="number" id="m_amb_ren_c" placeholder="—" step="0.1" oninput="ASGESG.saveAndProgress()" aria-label="% Energía renovable — Año -2">
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">303-1</span> Consumo de agua (m³)</div>
+            <input type="number" id="m_amb_agu_a" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Consumo de agua (m³) — Año actual">
+            <input type="number" id="m_amb_agu_b" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Consumo de agua (m³) — Año anterior">
+            <input type="number" id="m_amb_agu_c" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Consumo de agua (m³) — Año -2">
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">305-1</span> Emisiones Alcance 1 (t CO₂e)</div>
+            <input type="number" id="m_amb_co1_a" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Emisiones Alcance 1 (t CO₂e) — Año actual">
+            <input type="number" id="m_amb_co1_b" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Emisiones Alcance 1 (t CO₂e) — Año anterior">
+            <input type="number" id="m_amb_co1_c" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Emisiones Alcance 1 (t CO₂e) — Año -2">
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">305-2</span> Emisiones Alcance 2 (t CO₂e)</div>
+            <input type="number" id="m_amb_co2_a" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Emisiones Alcance 2 (t CO₂e) — Año actual">
+            <input type="number" id="m_amb_co2_b" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Emisiones Alcance 2 (t CO₂e) — Año anterior">
+            <input type="number" id="m_amb_co2_c" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Emisiones Alcance 2 (t CO₂e) — Año -2">
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">306-3</span> Residuos generados (t)</div>
+            <input type="number" id="m_amb_res_a" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Residuos generados (t) — Año actual">
+            <input type="number" id="m_amb_res_b" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Residuos generados (t) — Año anterior">
+            <input type="number" id="m_amb_res_c" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Residuos generados (t) — Año -2">
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">306-4</span> % Residuos reciclados</div>
+            <input type="number" id="m_amb_rec_a" placeholder="—" step="0.1" oninput="ASGESG.saveAndProgress()" aria-label="% Residuos reciclados — Año actual">
+            <input type="number" id="m_amb_rec_b" placeholder="—" step="0.1" oninput="ASGESG.saveAndProgress()" aria-label="% Residuos reciclados — Año anterior">
+            <input type="number" id="m_amb_rec_c" placeholder="—" step="0.1" oninput="ASGESG.saveAndProgress()" aria-label="% Residuos reciclados — Año -2">
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">307-1</span> Sanciones ambientales</div>
+            <input type="number" id="m_amb_san_a" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Sanciones ambientales — Año actual">
+            <input type="number" id="m_amb_san_b" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Sanciones ambientales — Año anterior">
+            <input type="number" id="m_amb_san_c" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Sanciones ambientales — Año -2">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Objetivos ambientales del período</div>
+        <textarea id="amb_objetivos" aria-label="Objetivos ambientales del período" rows="3" placeholder="Ej: Reducción del 15% de emisiones Alcance 1 y 2 respecto al año anterior. Alcanzar el 80% de energía renovable en 2025." oninput="ASGESG.saveAndProgress()"></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="ASGESG.navigate('etica')">Siguiente →</button>
+        <button class="btn btn-secondary" onclick="ASGESG.navigate('clientes')">← Atrás</button>
+      </div>
+    </div>
+
+    <!-- ─── ÉTICA ─── -->
+    <div class="section" id="section-etica">
+      <div class="section-header">
+        <div class="gri-tag">GRI 205-3 · 206-1 · 207-1</div>
+        <h2>Ética y <span>Gobernanza</span></h2>
+        <p>Anticorrupción, cumplimiento normativo, fiscalidad responsable y código de conducta.</p>
+      </div>
+
+      <div class="progress-bar-wrap">
+        <span class="progress-label">Progreso del módulo</span>
+        <div class="progress-track"><div class="progress-fill" id="fill-etica" style="width:0%"></div></div>
+        <span class="progress-pct" id="pct-etica">0%</span>
+      </div>
+
+      <div class="info-block">
+        <strong>ODS relacionados:</strong> ODS 16 (Paz, justicia e instituciones sólidas), ODS 17 (Alianzas)
+      </div>
+
+      <div class="card">
+        <div class="card-title">Medidas anticorrupción <span class="gri-tag">205-3</span></div>
+        <div class="card-hint">Describe las políticas, canales y medidas que la empresa aplica para prevenir la corrupción y el soborno.</div>
+        <textarea id="eti_anticorrupcion" aria-label="Medidas anticorrupción" rows="4" placeholder="Ej: La empresa dispone de código ético, canal de denuncias confidencial, política de regalos y conflictos de interés. Todos los empleados reciben formación anual..." oninput="ASGESG.saveAndProgress()"></textarea>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Indicadores de ética y gobernanza</div>
+        <div class="metrics-grid">
+          <div class="metric-row header">
+            <div>Indicador</div><div>Año actual</div><div>Año ant.</div><div>Año -2</div>
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">205-3</span> Casos corrupción confirmados</div>
+            <input type="number" id="m_eti_cor_a" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Casos corrupción confirmados — Año actual">
+            <input type="number" id="m_eti_cor_b" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Casos corrupción confirmados — Año anterior">
+            <input type="number" id="m_eti_cor_c" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Casos corrupción confirmados — Año -2">
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">207-1</span> Sanciones fiscales</div>
+            <input type="number" id="m_eti_fis_a" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Sanciones fiscales — Año actual">
+            <input type="number" id="m_eti_fis_b" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Sanciones fiscales — Año anterior">
+            <input type="number" id="m_eti_fis_c" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Sanciones fiscales — Año -2">
+          </div>
+          <div class="metric-row">
+            <div><span class="metric-id">206-1</span> Litigios anticompetencia</div>
+            <input type="number" id="m_eti_lit_a" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Litigios anticompetencia — Año actual">
+            <input type="number" id="m_eti_lit_b" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Litigios anticompetencia — Año anterior">
+            <input type="number" id="m_eti_lit_c" placeholder="—" oninput="ASGESG.saveAndProgress()" aria-label="Litigios anticompetencia — Año -2">
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="ASGESG.navigate('generar')">Generar Informe</button>
+        <button class="btn btn-secondary" onclick="ASGESG.navigate('medioambiente')">← Atrás</button>
+      </div>
+    </div>
+
+    <!-- ─── GENERAR ─── -->
+    <div class="section" id="section-generar">
+      <div class="section-header">
+        <h2>Generar <span>Informe ESG</span></h2>
+        <p>Elige el documento que quieres generar. Se construye al instante en tu navegador con los datos que has introducido — no se envía nada a ningún servidor.</p>
+      </div>
+
+      <div class="doc-type-grid">
+        <div class="doc-type-card selected" id="dtype-reporte" onclick="ASGESG.selectDocType('reporte')">
+          <div class="name">Reporte ASG</div>
+          <div class="desc">Informe completo de sostenibilidad (GRI)</div>
+        </div>
+        <div class="doc-type-card" id="dtype-medioambiental" onclick="ASGESG.selectDocType('medioambiental')">
+          <div class="name">Política Medioambiental</div>
+          <div class="desc">Documento de política ambiental corporativa</div>
+        </div>
+        <div class="doc-type-card" id="dtype-conducta" onclick="ASGESG.selectDocType('conducta')">
+          <div class="name">Código de Conducta</div>
+          <div class="desc">Código ético y de comportamiento</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Idioma del documento</div>
+        <div class="card-hint">El contenido del documento se redacta en el idioma elegido.</div>
+        <div class="checkbox-group">
+          <div class="checkbox-pill checked" id="dlang-es" onclick="ASGESG.selectDocLang('es')">Español</div>
+          <div class="checkbox-pill" id="dlang-ca" onclick="ASGESG.selectDocLang('ca')">Valencià</div>
+          <div class="checkbox-pill" id="dlang-en" onclick="ASGESG.selectDocLang('en')">English</div>
+        </div>
+      </div>
+
+      <div class="generate-area">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem">
+          <div style="font-family:'Inter',sans-serif; font-weight:700; color:var(--text)">Estado del documento</div>
+        </div>
+        <div class="ai-output" id="ai-output">
+          <span style="color:var(--muted); font-size:12px">Pulsa "Generar documento" — tu informe .docx se creará al instante en tu navegador y podrás descargarlo.</span>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="ASGESG.generateReport()" id="gen-btn">Generar documento .docx</button>
+        <button class="btn btn-secondary" onclick="ASGESG.navigate('etica')">← Atrás</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="asgesg-toast">
+  <span id="asgesg-toast-msg">Guardado</span>
+</div>
+
+</div>
+<!-- /.asgesg-wrap -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
