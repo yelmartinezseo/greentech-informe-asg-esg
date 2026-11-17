@@ -1,0 +1,34 @@
+{
+  "title": "Generador de Informe ASG/ESG para pymes",
+  "upload_type": "software",
+  "description": "Genera un informe de sostenibilidad ASG/ESG para pymes con referencias a GRI 2021, CSRD y la Agenda 2030, descargable como documento Word (.docx). El documento se construye entero en el navegador.",
+  "creators": [
+    {
+      "name": "Martínez, Yel",
+      "orcid": "0009-0003-0219-7265"
+    }
+  ],
+  "license": "gpl-2.0-or-later",
+  "keywords": [
+    "ESG",
+    "ASG",
+    "informe de sostenibilidad",
+    "GRI",
+    "CSRD",
+    "pymes"
+  ],
+  "language": "spa",
+  "related_identifiers": [
+    {
+      "identifier": "https://yel-martinez-portfolio.com/recursos/generador-de-informe-asg-esg-gratuito-para-pymes/",
+      "relation": "isDocumentedBy",
+      "resource_type": "publication-other",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://github.com/yelmartinezseo/greentech-informe-asg-esg",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ]
+}
