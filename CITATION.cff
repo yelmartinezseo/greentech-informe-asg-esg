@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "Si usas este software, cítalo con estos metadatos. El DOI apunta siempre a la versión más reciente."
+type: software
+title: "Generador de Informe ASG/ESG para pymes"
+abstract: "Genera tu informe de sostenibilidad ASG/ESG gratis en minutos. Alineado con GRI 2021, CSRD y Agenda 2030. Descarga en Word (.docx) al instante."
+authors:
+  - family-names: "Martínez"
+    given-names: "Yel"
+    alias: "yelmartinezseo"
+    affiliation: "Greentech"
+    website: "https://yel-martinez-portfolio.com"
+    orcid: "https://orcid.org/0009-0003-0219-7265"
+doi: "10.5281/zenodo.24310473"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24310473"
+    description: "DOI de concepto en Zenodo (todas las versiones)"
+license: GPL-2.0-or-later
+repository-code: "https://github.com/yelmartinezseo/greentech-informe-asg-esg"
+url: "https://yel-martinez-portfolio.com/recursos/generador-de-informe-asg-esg-gratuito-para-pymes/"
+keywords:
+  - "ESG"
+  - "ASG"
+  - "informe de sostenibilidad"
+  - "pymes"
+  - "Greentech"
+  - "open source"
